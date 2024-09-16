@@ -1,0 +1,156 @@
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.formContainer {
+  max-width: 80rem;
+  margin: 2rem auto;
+  padding: 2rem 1rem;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #2c1e19, #25200f); /* New background gradient */
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+  animation: fade-slide-in-from-bottom 1s ease-out forwards;
+}
+
+.fieldGroup {
+  margin-bottom: 1.5rem; /* Space between field groups */
+}
+
+.label {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #ddd6cb; /* Lighter color for labels to match dark background */
+  display: block; /* Ensure labels are block elements */
+  margin-bottom: 0.5rem; /* Space between label and input */
+}
+
+.inputField {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #6e6464; /* Dark background color for inputs */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5); /* Add shadow to inputs */
+  color: #fff; /* White text inside input fields */
+  transition: border-color 0.3s;
+}
+
+.inputField:focus {
+  border-color: #f9572a; /* Highlight border on focus */
+  outline: none; /* Remove default outline */
+}
+
+.textarea {
+  resize: vertical; /* Allow vertical resizing */
+  min-height: 100px; /* Minimum height for the textarea */
+  padding-top: 0.9rem;
+}
+
+.errorMessage {
+  color: #f9572a; /* Error message color */
+  font-size: 0.875rem; /* Smaller font size for error messages */
+  margin-top: 0.25rem; /* Space between field and error message */
+}
+
+.submitButton {
+  padding: 0.75rem 1.5rem;
+  background-color: #f9572a; /* Submit button background color */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submitButton:hover {
+  background-color: #ff8a05; /* Darker shade on hover */
+}
+
+.instructionsContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem; /* Space between the instructions and the preview */
+  margin-bottom: 1.5rem;
+}
+
+.instructionsGroup {
+  flex: 1; /* Make each column take equal space */
+  display: flex;
+  flex-direction: column;
+}
+
+.instructionsGroup textarea, .instructionsGroup div {
+  flex: 1; /* Ensure the textarea and preview div take up the same height */
+}
+
+.instructionsLabel {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #ddd6cb;
+  margin-bottom: 0.5rem;
+}
+
+.previewMarkdown {
+  background-color: #6e6464;
+  color: #fff;
+  padding: 0 0.75rem;
+  border-radius: 8px;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+  white-space: pre-wrap; /* Preserve whitespace in markdown preview */
+}
+
+.customFileContainer {
+  display: flex;
+  align-items: center;
+}
+
+.customFileUpload {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: #6e6464;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+  font-size: 1rem;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.customFileUpload:hover {
+  background-color: #5a5555;
+}
+
+.customFileUpload:active {
+  background-color: #4b4747;
+}
+
+.imageInput {
+  display: none;
+}
+
+.fileName {
+  margin-left: 1rem;
+  font-size: 1rem;
+  color: #ddd6cb;
+  word-wrap: break-word;
+  max-width: 300px; /* Adjust as needed */
+}
+
+
+@keyframes fade-slide-in-from-bottom {
+  0% {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
