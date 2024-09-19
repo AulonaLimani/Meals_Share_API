@@ -32,11 +32,11 @@ export const UPDATE_MEAL = {
     creator_email: { type: GraphQLString },
   },
   async resolve(_parent: any, args: any) {
-    const id = args.id;
+    const { id, ...rest } = args;
 
     return await prisma.meal.update({
       where: { id: parseInt(id) },
-      data: args,
+      data: rest,
     });
   },
 };
