@@ -1,6 +1,8 @@
 import { GraphQLID, GraphQLString } from "graphql";
 import { MealType } from "../TypeDefs/Meal";
-import { Meal } from "../../Entities/Meal";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export const CREATE_MEAL = {
   type: MealType,
@@ -14,8 +16,7 @@ export const CREATE_MEAL = {
     password: { type: GraphQLString },
   },
   async resolve(_parent: any, args: any) {
-    const meal = await Meal.insert(args);
-    return { ...args, id: meal.identifiers[0].id };
+    return await prisma.meal.create({ data: args });
   },
 };
 
@@ -33,15 +34,10 @@ export const UPDATE_MEAL = {
   async resolve(_parent: any, args: any) {
     const id = args.id;
 
-    const meal = await Meal.findOne({ id });
-
-    if (!meal) {
-      throw new Error("This meal does not exist");
-    }
-
-    await Meal.update({ id }, args);
-
-    return args;
+    return await prisma.meal.update({
+      where: { id: parseInt(id) },
+      data: args,
+    });
   },
 };
 
@@ -51,7 +47,9 @@ export const DELETE_MEAL = {
     id: { type: GraphQLID },
   },
   async resolve(_parent: any, args: any) {
-    await Meal.delete(args.id);
-    return args.id;
+    const id = args.id;
+    return await prisma.meal.delete({
+      where: { id: parseInt(id) },
+    });
   },
 };

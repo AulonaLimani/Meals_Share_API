@@ -1,9 +1,7 @@
 import express from "express";
 import { graphqlHTTP } from "express-graphql";
 import cors from "cors";
-import { createConnection } from "typeorm";
 import { schema } from "./Schema";
-import { Meal } from "./Entities/Meal";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
@@ -45,16 +43,6 @@ const upload = multer({
 });
 
 const main = async () => {
-  await createConnection({
-    type: "mysql",
-    database: "food_app",
-    username: "root",
-    password: "root",
-    logging: true,
-    synchronize: false,
-    entities: [Meal],
-  });
-
   const app = express();
   app.use(cors());
   app.use(express.json());
