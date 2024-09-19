@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
+    "axios": "^1.7.7",
     "better-sqlite3": "^9.4.3",
     "crypto-js": "^4.2.0",
     "formidable": "^3.5.1",

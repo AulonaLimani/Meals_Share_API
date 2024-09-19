@@ -14,8 +14,8 @@ export const CREATE_MEAL = {
     password: { type: GraphQLString },
   },
   async resolve(_parent: any, args: any) {
-    await Meal.insert(args);
-    return args;
+    const meal = await Meal.insert(args);
+    return { ...args, id: meal.identifiers[0].id };
   },
 };
 

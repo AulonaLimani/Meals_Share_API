@@ -7,16 +7,20 @@ import { useRouter } from "next/navigation";
 
 export default function ShareMealPage() {
   const router = useRouter();
-
   const [createMeal] = useMutation(CREATE_MEAL);
 
-  const handleCreate = (values) => {
-    createMeal({
-      variables: values,
-      onCompleted(data) {
-        router.push(`/meals/${data.createMeal.id}`);
-      },
-    });
+  const handleCreate = async (values) => {
+    console.log("values", values);
+    try {
+      await createMeal({
+        variables: values,
+        onCompleted(data) {
+          router.push(`/meals/${data.createMeal.id}`);
+        },
+      });
+    } catch (error) {
+      console.error("Error creating meal:", error);
+    }
   };
 
   return (

@@ -1,7 +1,6 @@
 import { MealType } from "../TypeDefs/Meal";
 import { GraphQLID, GraphQLList } from "graphql";
 import { Meal } from "./../../Entities/Meal";
-import { resolve } from "path";
 
 export const GET_ALL_MEALS = {
   type: new GraphQLList(MealType),

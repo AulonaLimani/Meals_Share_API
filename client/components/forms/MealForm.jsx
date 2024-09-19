@@ -1,13 +1,14 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
+import axios from "axios";
 import classes from "./MealForm.module.css";
 import ReactMarkdown from "react-markdown";
 import CryptoJS from "crypto-js";
 
 const initialDataDefault = {
   title: "",
-  image: "/images/burger.jpg",
+  image: "",
   summary: "",
   instructions: "",
   creator: "",
@@ -30,23 +31,24 @@ export const MealForm = ({ initialData, onSubmit, showPasswords = true }) => {
       .email("Invalid email address")
       .required("Required"),
   });
+
   return (
     <Formik
       initialValues={initialData ?? initialDataDefault}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
         const { password, confirm_password, ...data } = values;
 
         if (password === confirm_password && showPasswords) {
           const hash = CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
           const args = { ...data, password: hash };
-          onSubmit(args);
+          await onSubmit(args);
           return;
         }
 
         if (!showPasswords) {
-          onSubmit(data);
+          await onSubmit(data);
           return;
         }
 
@@ -55,14 +57,35 @@ export const MealForm = ({ initialData, onSubmit, showPasswords = true }) => {
       }}
     >
       {({ isSubmitting, values, setFieldValue }) => {
-        const handleFileChange = (e) => {
+        const handleFileChange = async (e) => {
           if (e.target.files.length > 0) {
-            setFileName("/images/burger.jpg");
+            const file = e.target.files[0];
+            const formData = new FormData();
+            formData.append("image", file);
+
+            try {
+              const response = await axios.post(
+                "http://localhost:3001/upload/meals",
+                formData,
+                {
+                  headers: { "Content-Type": "multipart/form-data" },
+                }
+              );
+
+              console.log(response.data);
+
+              const imageUrl = response.data.fileName;
+              setFileName(file.name);
+              setFieldValue("image", imageUrl);
+            } catch (error) {
+              console.error("Error uploading file:", error);
+              setFileName("");
+            }
           } else {
-            setFileName(""); // Reset if no file is selected
+            setFileName("");
           }
-          setFieldValue("image", "/images/burger.jpg");
         };
+
         return (
           <Form>
             <div className={classes.formContainer}>
