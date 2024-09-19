@@ -1,0 +1,25 @@
+query getAllMeals {
+  getAllMeals {
+    id
+    title
+    image
+    summary
+    instructions
+    creator
+    creator_email
+    password
+  }
+}
+
+query findMealById($id: ID!) {
+  findMealById(id: $id) {
+    id
+    title
+    image
+    summary
+    instructions
+    creator
+    creator_email
+    password
+  }
+}

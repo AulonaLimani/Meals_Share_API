@@ -1,0 +1,8 @@
+schema: "http://localhost:3001/graphql" # Update if your GraphQL endpoint is different
+documents: "graphql/**/*.graphql" # Path to your .graphql files
+generates:
+  graphql/generated/graphql.ts: # Output path for generated types
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo" # for React hooks

@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import MealGrid from "./meals-grid";
-import { GET_ALL_MEALS } from "../../graphQL/Queries";
+import { GET_ALL_MEALS } from "../../graphql/Queries";
 
 export const Meals = ({ meals }) => {
   //   const { data: mealsData, loading, error } = useQuery(GET_ALL_MEALS);

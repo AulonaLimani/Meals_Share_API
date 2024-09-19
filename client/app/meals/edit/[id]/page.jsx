@@ -1,22 +1,25 @@
 "use client";
-import { useQuery, useMutation } from "@apollo/client";
-import { GET_MEAL_BY_ID } from "../../../../graphQL/Queries";
-import { UPDATE_MEAL, DELETE_MEAL } from "@/graphQL/Mutation";
+import {
+  useFindMealByIdQuery,
+  useUpdateMealMutation,
+  useDeleteMealMutation,
+} from "@/graphql/generated/graphql";
 import { MealForm } from "@/components/forms/MealForm";
 import { Login } from "../../../../components/forms/Login";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import classes from "./page.module.css";
 
 export default function EditMealPage({ params }) {
   const router = useRouter();
 
-  const { data: mealData } = useQuery(GET_MEAL_BY_ID, {
+  const { data: mealData } = useFindMealByIdQuery({
     variables: { id: params.id },
   });
 
-  const [updateMeal] = useMutation(UPDATE_MEAL);
+  const [updateMeal] = useUpdateMealMutation();
 
-  const [deleteMeal] = useMutation(DELETE_MEAL);
+  const [deleteMeal] = useDeleteMealMutation();
 
   const handleUpdate = (values) => {
     updateMeal({
@@ -35,8 +38,9 @@ export default function EditMealPage({ params }) {
     meal &&
     (loggedIn ? (
       <>
-        <div>
+        <div className={classes.deleteButtonContainer}>
           <button
+            className={classes.deleteButton}
             onClick={() => {
               deleteMeal({
                 variables: { id: params.id },

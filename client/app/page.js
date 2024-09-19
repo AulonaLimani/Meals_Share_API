@@ -1,15 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { GET_ALL_MEALS } from "../graphQL/Queries";
-import { useQuery } from "@apollo/client";
 
 import classes from "./page.module.css";
 import ImageSlideshow from "@/components/images/image-slideshow";
 
 export default function Home() {
-  // const { data: mealsData, loading, error } = useQuery(GET_ALL_MEALS);
-  // console.log("meal data", mealsData);
   return (
     <>
       <header className={classes.header}>

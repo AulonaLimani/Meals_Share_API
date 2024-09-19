@@ -23,6 +23,10 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/typescript": "^4.0.9",
+    "@graphql-codegen/typescript-operations": "^4.2.3",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.2",
     "eslint": "^8",
     "eslint-config-next": "14.0.3"
   }

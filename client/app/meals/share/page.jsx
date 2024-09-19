@@ -1,13 +1,12 @@
 "use client";
-import { CREATE_MEAL } from "@/graphQL/Mutation";
-import { useMutation } from "@apollo/client";
+import { useCreateMealMutation } from "@/graphql/generated/graphql";
 import { MealForm } from "@/components/forms/MealForm";
 import classes from "./page.module.css";
 import { useRouter } from "next/navigation";
 
 export default function ShareMealPage() {
   const router = useRouter();
-  const [createMeal] = useMutation(CREATE_MEAL);
+  const [createMeal] = useCreateMealMutation();
 
   const handleCreate = async (values) => {
     console.log("values", values);

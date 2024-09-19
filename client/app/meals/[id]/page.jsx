@@ -1,13 +1,12 @@
 "use client";
-import { useQuery } from "@apollo/client";
 import classes from "./page.module.css";
 import Image from "next/image";
-import { GET_MEAL_BY_ID } from "../../../graphQL/Queries";
+import { useFindMealByIdQuery } from "@/graphql/generated/graphql";
 import ReactMarkDown from "react-markdown";
 import Link from "next/link";
 
 export default function MealDetailsPage({ params }) {
-  const { data: mealData } = useQuery(GET_MEAL_BY_ID, {
+  const { data: mealData } = useFindMealByIdQuery({
     variables: { id: params.id },
   });
 
@@ -19,7 +18,6 @@ export default function MealDetailsPage({ params }) {
 
   const imageUrl = `http://localhost:3001/${meal.image}`;
 
-  console.log("imageurl", imageUrl);
   return (
     meal && (
       <>
@@ -35,15 +33,14 @@ export default function MealDetailsPage({ params }) {
             <p className={classes.summary}>{meal?.summary}</p>
           </div>
         </header>
+        <div className={classes.cta}>
+          <Link href={`edit/${meal?.id}`}>Edit Your Meal</Link>
+        </div>
         <main>
           <ReactMarkDown className={classes.instructions}>
             {meal?.instructions}
           </ReactMarkDown>
         </main>
-        <div className={classes.editContainer}>
-          If you are the createor of this meal, and you want to edit it{" "}
-          <Link href={`edit/${meal?.id}`}>click here</Link>
-        </div>
       </>
     )
   );

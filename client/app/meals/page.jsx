@@ -2,13 +2,11 @@
 
 import Link from "next/link";
 import classes from "./page.module.css";
-import { useQuery } from "@apollo/client";
-import { GET_ALL_MEALS } from "@/graphQL/Queries";
+import { useGetAllMealsQuery } from "@/graphql/generated/graphql";
 import MealGrid from "@/components/meals/meals-grid";
 
 export default function MealsPage() {
-  const { data: mealsData, loading: mealsLoading } = useQuery(GET_ALL_MEALS);
-  console.log("meal data", mealsData);
+  const { data: mealsData, loading: mealsLoading } = useGetAllMealsQuery();
 
   return (
     <>
