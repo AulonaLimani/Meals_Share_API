@@ -95,3 +95,6 @@ In order for the project to run, these steps must be followed:
 - You can explore and test the available routes using a GraphQL client.
 - After completing the installation steps, access the web application by navigating to http://localhost:3000.
 - There are meals created with user accounts, and you edit or delete them with these credentials: email: **admin@admin.com** password: **admin**.
+
+[Demo Video](https://github.com/user-attachments/assets/3e8d0c6d-0f0f-41af-bb8d-d2835c8e74a9)
+
