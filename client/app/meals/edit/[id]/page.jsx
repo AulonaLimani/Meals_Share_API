@@ -16,6 +16,7 @@ export default function EditMealPage({ params }) {
 
   const { data: mealData } = useFindMealByIdQuery({
     variables: { id: params.id },
+    fetchPolicy: "network-only",
   });
 
   const [updateMeal] = useUpdateMealMutation();

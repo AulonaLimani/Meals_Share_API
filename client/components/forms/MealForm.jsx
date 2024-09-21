@@ -5,7 +5,6 @@ import axios from "axios";
 import classes from "./MealForm.module.css";
 import ReactMarkdown from "react-markdown";
 import CryptoJS from "crypto-js";
-import { toast } from "react-toastify";
 
 const initialDataDefault = {
   title: "",

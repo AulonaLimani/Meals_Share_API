@@ -8,6 +8,7 @@ import Link from "next/link";
 export default function MealDetailsPage({ params }) {
   const { data: mealData } = useFindMealByIdQuery({
     variables: { id: params.id },
+    fetchPolicy: "network-only",
   });
 
   const meal = mealData?.findMealById;

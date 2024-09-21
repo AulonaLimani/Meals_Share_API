@@ -16,6 +16,7 @@ export default function MealsPage() {
     error: mealsError,
   } = useGetAllMealsQuery({
     variables: { page, limit },
+    fetchPolicy: "network-only",
   });
 
   const totalPages = mealsData?.getAllMeals?.totalPages || 1;
