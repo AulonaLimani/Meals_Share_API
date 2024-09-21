@@ -29,6 +29,13 @@ export type Meal = {
   title?: Maybe<Scalars['String']['output']>;
 };
 
+export type MealPagination = {
+  __typename?: 'MealPagination';
+  currentPage?: Maybe<Scalars['Int']['output']>;
+  meals?: Maybe<Array<Maybe<Meal>>>;
+  totalPages?: Maybe<Scalars['Int']['output']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createMeal?: Maybe<Meal>;
@@ -66,12 +73,18 @@ export type MutationUpdateMealArgs = {
 export type RootQuery = {
   __typename?: 'RootQuery';
   findMealById?: Maybe<Meal>;
-  getAllMeals?: Maybe<Array<Maybe<Meal>>>;
+  getAllMeals?: Maybe<MealPagination>;
 };
 
 
 export type RootQueryFindMealByIdArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type RootQueryGetAllMealsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type CreateMealMutationVariables = Exact<{
@@ -107,10 +120,13 @@ export type DeleteMealMutationVariables = Exact<{
 
 export type DeleteMealMutation = { __typename?: 'Mutation', deleteMeal?: { __typename?: 'Meal', id?: string | null } | null };
 
-export type GetAllMealsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetAllMealsQueryVariables = Exact<{
+  page: Scalars['Int']['input'];
+  limit: Scalars['Int']['input'];
+}>;
 
 
-export type GetAllMealsQuery = { __typename?: 'RootQuery', getAllMeals?: Array<{ __typename?: 'Meal', id?: string | null, title?: string | null, image?: string | null, summary?: string | null, instructions?: string | null, creator?: string | null, creator_email?: string | null, password?: string | null } | null> | null };
+export type GetAllMealsQuery = { __typename?: 'RootQuery', getAllMeals?: { __typename?: 'MealPagination', totalPages?: number | null, currentPage?: number | null, meals?: Array<{ __typename?: 'Meal', id?: string | null, title?: string | null, image?: string | null, summary?: string | null, creator?: string | null } | null> | null } | null };
 
 export type FindMealByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -262,16 +278,17 @@ export type DeleteMealMutationHookResult = ReturnType<typeof useDeleteMealMutati
 export type DeleteMealMutationResult = Apollo.MutationResult<DeleteMealMutation>;
 export type DeleteMealMutationOptions = Apollo.BaseMutationOptions<DeleteMealMutation, DeleteMealMutationVariables>;
 export const GetAllMealsDocument = gql`
-    query getAllMeals {
-  getAllMeals {
-    id
-    title
-    image
-    summary
-    instructions
-    creator
-    creator_email
-    password
+    query getAllMeals($page: Int!, $limit: Int!) {
+  getAllMeals(page: $page, limit: $limit) {
+    meals {
+      id
+      title
+      image
+      summary
+      creator
+    }
+    totalPages
+    currentPage
   }
 }
     `;
@@ -288,10 +305,12 @@ export const GetAllMealsDocument = gql`
  * @example
  * const { data, loading, error } = useGetAllMealsQuery({
  *   variables: {
+ *      page: // value for 'page'
+ *      limit: // value for 'limit'
  *   },
  * });
  */
-export function useGetAllMealsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllMealsQuery, GetAllMealsQueryVariables>) {
+export function useGetAllMealsQuery(baseOptions: Apollo.QueryHookOptions<GetAllMealsQuery, GetAllMealsQueryVariables> & ({ variables: GetAllMealsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<GetAllMealsQuery, GetAllMealsQueryVariables>(GetAllMealsDocument, options);
       }

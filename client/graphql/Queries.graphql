@@ -1,13 +1,14 @@
-query getAllMeals {
-  getAllMeals {
-    id
-    title
-    image
-    summary
-    instructions
-    creator
-    creator_email
-    password
+query getAllMeals($page: Int!, $limit: Int!) {
+  getAllMeals(page: $page, limit: $limit) {
+    meals {
+      id
+      title
+      image
+      summary
+      creator
+    }
+    totalPages
+    currentPage
   }
 }
 
