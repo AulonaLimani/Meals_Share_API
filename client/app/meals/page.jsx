@@ -8,7 +8,7 @@ import MealGrid from "@/components/meals/meals-grid";
 
 export default function MealsPage() {
   const [page, setPage] = useState(1);
-  const limit = 10;
+  const limit = 6;
 
   const {
     data: mealsData,
@@ -49,7 +49,7 @@ export default function MealsPage() {
       <main className={classes.main}>
         {mealsLoading && <>Loading meals...</>}
         {mealsError && <p>Failed to load meals. Please try again later.</p>}
-        {mealsData?.getAllMeals?.meals?.length > 0 ? (
+        {mealsData?.getAllMeals?.meals?.length > 0 && (
           <>
             <MealGrid meals={mealsData.getAllMeals.meals} />
             <div className={classes.pagination}>
@@ -74,8 +74,6 @@ export default function MealsPage() {
               </span>
             </div>
           </>
-        ) : (
-          !mealsLoading && <p>No meals available at the moment.</p>
         )}
       </main>
     </>

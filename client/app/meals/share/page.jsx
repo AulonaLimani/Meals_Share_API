@@ -18,7 +18,7 @@ export default function ShareMealPage() {
         router.push(`/meals/${data.createMeal.id}`);
       },
       onError(error) {
-        toast.error(`Error creating meal: ${error.message}`);
+        toast.error(`Error creating meal`);
       },
     });
   };

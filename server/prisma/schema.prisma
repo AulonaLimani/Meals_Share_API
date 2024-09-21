@@ -12,7 +12,7 @@ model Meal {
   title         String
   image         String
   summary       String
-  instructions  String
+  instructions  String @db.Text
   creator       String
   creator_email String
   password      String

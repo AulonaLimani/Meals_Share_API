@@ -2,6 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import classes from "./MealForm.module.css";
 import CryptoJS from "crypto-js";
+import { toast } from "react-toastify";
 
 export const Login = ({ initialData, setLoggedIn }) => {
   const validationSchema = Yup.object().shape({
@@ -28,7 +29,7 @@ export const Login = ({ initialData, setLoggedIn }) => {
           return;
         }
 
-        alert("Wrong creator or creator email");
+        toast.error("Wrong creator or creator email");
       }}
     >
       {({ isSubmitting }) => {

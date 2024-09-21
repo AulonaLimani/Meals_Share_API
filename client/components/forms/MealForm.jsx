@@ -5,6 +5,7 @@ import axios from "axios";
 import classes from "./MealForm.module.css";
 import ReactMarkdown from "react-markdown";
 import CryptoJS from "crypto-js";
+import { toast } from "react-toastify";
 
 const initialDataDefault = {
   title: "",
@@ -20,22 +21,31 @@ const initialDataDefault = {
 export const MealForm = ({ initialData, onSubmit, showPasswords = true }) => {
   const [fileName, setFileName] = useState("");
 
-  const validationSchema = Yup.object().shape({
-    title: Yup.string().required("Required"),
-    summary: Yup.string().required("Required"),
-    instructions: Yup.string().required("Required"),
-    creator: Yup.string().required("Required"),
-    password: Yup.string().required("Required"),
-    confirm_password: Yup.string().required("Required"),
-    creator_email: Yup.string()
-      .email("Invalid email address")
-      .required("Required"),
-  });
+  const getValidationSchema = () => {
+    const schema = {
+      title: Yup.string().required("Required"),
+      summary: Yup.string().required("Required"),
+      instructions: Yup.string().required("Required"),
+      creator: Yup.string().required("Required"),
+      creator_email: Yup.string()
+        .email("Invalid email address")
+        .required("Required"),
+    };
+
+    if (showPasswords) {
+      schema.password = Yup.string().required("Required");
+      schema.confirm_password = Yup.string()
+        .oneOf([Yup.ref("password"), null], "Passwords must match")
+        .required("Required");
+    }
+
+    return Yup.object().shape(schema);
+  };
 
   return (
     <Formik
       initialValues={initialData ?? initialDataDefault}
-      validationSchema={validationSchema}
+      validationSchema={getValidationSchema()}
       onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
         const { password, confirm_password, ...data } = values;
@@ -52,11 +62,11 @@ export const MealForm = ({ initialData, onSubmit, showPasswords = true }) => {
           return;
         }
 
-        alert("Password and Confirm password did not match!");
         setSubmitting(false);
       }}
     >
       {({ isSubmitting, values, setFieldValue }) => {
+        console.log("values", values);
         const handleFileChange = async (e) => {
           if (e.target.files.length > 0) {
             const file = e.target.files[0];

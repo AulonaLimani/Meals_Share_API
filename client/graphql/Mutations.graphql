@@ -52,7 +52,6 @@ mutation updateMeal(
     instructions
     creator
     creator_email
-    password
   }
 }
 

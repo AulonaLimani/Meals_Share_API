@@ -1,6 +1,5 @@
 "use client";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import {
   useFindMealByIdQuery,
   useUpdateMealMutation,
@@ -24,12 +23,17 @@ export default function EditMealPage({ params }) {
   const [loggedIn, setLoggedIn] = useState(false);
 
   const meal = mealData?.findMealById;
+  const { id, password, creator, creator_email, ...rest } = meal ?? {};
 
   const handleUpdate = (values) => {
     updateMeal({
-      variables: values,
+      variables: { id, ...values },
       onCompleted(data) {
+        toast.success(`${meal.title} updated successfully!`);
         router.push(`/meals/${data.updateMeal.id}`);
+      },
+      onError(error) {
+        toast.error("Failed to update the meal");
       },
     });
   };
@@ -42,7 +46,7 @@ export default function EditMealPage({ params }) {
         router.push("/meals");
       },
       onError(error) {
-        toast.error(`Failed to delete ${meal.title}: ${error.message}`);
+        toast.error(`Failed to delete ${meal.title}`);
       },
     });
   };
@@ -57,13 +61,20 @@ export default function EditMealPage({ params }) {
           </button>
         </div>
         <MealForm
-          initialData={{ ...meal }}
+          initialData={{
+            ...rest,
+            creator,
+            creator_email,
+          }}
           onSubmit={handleUpdate}
           showPasswords={false}
         />
       </>
     ) : (
-      <Login initialData={{ ...meal }} setLoggedIn={setLoggedIn} />
+      <Login
+        initialData={{ creator, creator_email, password }}
+        setLoggedIn={setLoggedIn}
+      />
     ))
   );
 }

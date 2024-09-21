@@ -111,7 +111,7 @@ export type UpdateMealMutationVariables = Exact<{
 }>;
 
 
-export type UpdateMealMutation = { __typename?: 'Mutation', updateMeal?: { __typename?: 'Meal', id?: string | null, title?: string | null, image?: string | null, summary?: string | null, instructions?: string | null, creator?: string | null, creator_email?: string | null, password?: string | null } | null };
+export type UpdateMealMutation = { __typename?: 'Mutation', updateMeal?: { __typename?: 'Meal', id?: string | null, title?: string | null, image?: string | null, summary?: string | null, instructions?: string | null, creator?: string | null, creator_email?: string | null } | null };
 
 export type DeleteMealMutationVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -208,7 +208,6 @@ export const UpdateMealDocument = gql`
     instructions
     creator
     creator_email
-    password
   }
 }
     `;
