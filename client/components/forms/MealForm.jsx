@@ -65,7 +65,6 @@ export const MealForm = ({ initialData, onSubmit, showPasswords = true }) => {
       }}
     >
       {({ isSubmitting, values, setFieldValue }) => {
-        console.log("values", values);
         const handleFileChange = async (e) => {
           if (e.target.files.length > 0) {
             const file = e.target.files[0];
@@ -81,13 +80,10 @@ export const MealForm = ({ initialData, onSubmit, showPasswords = true }) => {
                 }
               );
 
-              console.log(response.data);
-
               const imageUrl = response.data.fileName;
               setFileName(file.name);
               setFieldValue("image", imageUrl);
             } catch (error) {
-              console.error("Error uploading file:", error);
               setFileName("");
             }
           } else {

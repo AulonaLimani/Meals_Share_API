@@ -25,11 +25,11 @@ export const Login = ({ initialData, setLoggedIn }) => {
           const hash = CryptoJS.SHA256(userPassword).toString(CryptoJS.enc.Hex);
           if (initialData.password === hash) {
             setLoggedIn(true);
+            return;
           }
-          return;
+          setSubmitting(false);
+          toast.error("Wrong creator or creator email");
         }
-
-        toast.error("Wrong creator or creator email");
       }}
     >
       {({ isSubmitting }) => {
